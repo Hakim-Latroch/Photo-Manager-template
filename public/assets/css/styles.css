@@ -14,10 +14,9 @@ body {
     border: none;
 }
 
-.photo-group img {
-    border-radius: 0.25rem;
-}
 
 #searchForm input {
     width: 300px;
 }
+
+

@@ -1,8 +1,10 @@
-const backendUrl = 'http://localhost/server.php'; // Replace with the URL of your backend server
+const backendUrl = 'http://localhost/Photo-Manager-template/server.php'; // Replace with the URL of your backend server
 
 $(document).ready(function () {
     function loadPhotoGroups() {
         $.get(`${backendUrl}?action=photos`, function (data) {
+            $('#photoCategory').empty();
+            $('#editPhotoCategory').empty();
             renderPhotoGroups(data);
             categoriesList();
             for (const group in data) {
@@ -54,8 +56,8 @@ $(document).ready(function () {
                     <div class="row">
                         ${photoGroups[group].map(photo => `
                             <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card ">
-                                <a href="${photo}" data-lightbox="${photo}"><img src="${photo}" class="img-fluid object-fit-cover" alt="${group}"></a>
+                                <div class="card  ">
+                                <a href="${photo}"  data-lightbox="${photo}"><img src="${photo}" style="height: 200px;object-fit: cover" class="  w-100" alt="${group}"></a>
                                 
                                     <div class="card-body">
                                         <button data-old-category="${group}" data-photo-path="${photo}" type="button" class="btn btn-primary edit-btn" data-photo="${photo}" data-bs-toggle="modal" data-bs-target="#editPhotoModal">Edit</button>
