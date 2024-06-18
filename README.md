@@ -52,13 +52,13 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
     - Open `http://localhost/Photo-manager-template/public` in your browser.
 
 2. **Upload Photos**:
-    - Select a category and upload photos using the form provided.
+    - Click on 'Add photo' and upload photos using the form provided.
 
 3. **Manage Categories**:
     - Use the interface to create, rename, or delete categories.
 
-4. **Edit Photos**:
-    - Rename or delete photos directly from the interface.
+4. **Photos cards**:
+    - Edit photo's category or delete photos directly from the interface.
 
 ### API Endpoints
 
@@ -119,12 +119,12 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 ### Front-End
 
 1. **HTML and CSS**:
-    - Modify the `index.html` and `styles.css` files to change the layout and styling of the interface.
+    - Modify the `public/index.html` and `public/assets/css/styles.css` files to change the layout and styling of the interface.
 
 2. **JavaScript**:
-    - Update the JavaScript code in `scripts.js` to add new features or modify existing ones.
+    - Update the JavaScript code in `public/assets/js/scripts.js` to add new features or modify existing ones.
 
-### Back-End
+### Back-End        
 
 1. **PHP**:
     - The PHP code handling file operations is located in `server.php`. You can extend or modify the functions to suit your needs.
