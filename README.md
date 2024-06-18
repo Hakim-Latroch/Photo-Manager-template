@@ -28,12 +28,12 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/photo-manager-template.git
+    git clone https://github.com/Hakim-Latroch/Photo-manager-template.git
     cd photo-manager-template
     ```
 
 2. **Set up the server**:
-    - Place the `photo-manager-template` directory in your web server's root directory (e.g., `htdocs` for XAMPP, `www` for WAMP).
+    - Place the `Photo-manager-template` directory in your web server's root directory (e.g., `htdocs` for XAMPP, `www` for WAMP).
 
 3. **Configure permissions**:
     - Ensure the `public/assets/imgs` directory has write permissions. You can set this using:
@@ -49,7 +49,7 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 ### User Interface
 
 1. **Navigate to the Web Interface**:
-    - Open `http://localhost/photo-manager-template` in your browser.
+    - Open `http://localhost/Photo-manager-template/public` in your browser.
 
 2. **Upload Photos**:
     - Select a category and upload photos using the form provided.
@@ -64,13 +64,13 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 
 - **Get Photos**:
     ```http
-    GET http://localhost/photo-manager-template/server.php?action=photos
+    GET http://localhost/Photo-manager-template/server.php?action=photos
     ```
     Fetches all photo categories and their photos.
 
 - **Upload Photo**:
     ```http
-    POST http://localhost/photo-manager-template/server.php?action=upload
+    POST http://localhost/Photo-manager-template/server.php?action=upload
     ```
     Form Data:
     - `category`: The category to upload the photo to.
@@ -78,7 +78,7 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 
 - **Edit Photo**:
     ```http
-    POST http://localhost/photo-manager-template/server.php?action=edit
+    POST http://localhost/Photo-manager-template/server.php?action=edit
     ```
     Form Data:
     - `oldCategory`: The current category of the photo.
@@ -87,7 +87,7 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 
 - **Delete Photo**:
     ```http
-    POST http://localhost/photo-manager-template/server.php?action=delete
+    POST http://localhost/Photo-manager-template/server.php?action=delete
     ```
     Form Data:
     - `photo`: The photo file name.
