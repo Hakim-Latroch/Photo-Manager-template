@@ -320,16 +320,16 @@ The PHP script `server.php` handles all backend operations. Here's a brief overv
      }
     }
     ```
--**Creating Categories**:
+- **Creating Categories**:
   ```php
   /**
- * This function handles a POST request to create a new category.
- * It checks if the category name is provided in the request.
- * If the category name is provided, it creates a new directory for the category on the server.
- * If the directory is created successfully, it responds with a success message.
- * If the directory already exists or the creation operation fails, it responds with an error message.
- */
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'category_create') {
+     * This function handles a POST request to create a new category.
+     * It checks if the category name is provided in the request.
+     * If the category name is provided, it creates a new directory for the category on the server.
+   * If the directory is created successfully, it responds with a success message.
+     * If the directory already exists or the creation operation fails, it responds with an error message.
+     */
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'category_create') {
     // Check if request is valid
     if (isset($_POST['category'])) {
         // Get the category name from the POST request
@@ -349,20 +349,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         // Respond with error message if invalid input data
         respond(400, ["message" => "Invalid input data."]);
     }
-}
+    }
   ```
--**Rename Categories**:
-  ```php
- // Handle POST request to rename a category
+  - **Rename Categories**:
+ ```php
+     // Handle POST request to rename a category
 
-/**
- * This function handles a POST request to rename a category.
- * It checks if the old category name and new category name are provided in the request.
- * If the old category name and new category name are provided, it renames the category directory on the server.
- * If the directory is renamed successfully, it responds with a success message.
- * If the directory does not exist or the renaming operation fails, it responds with an error message.
- */
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'category_rename') {
+    /**
+     * This function handles a POST request to rename a category.
+     * It checks if the old category name and new category name are provided in the request.
+     * If the old category name and new category name are provided, it renames the category directory on the server.
+     * If the directory is renamed successfully, it responds with a success message.
+     * If the directory does not exist or the renaming operation fails, it responds with an error message.
+     */
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'category_rename') {
     // Check if POST request for renaming a category
 
     // Check if old category name and new category name are provided in the request
@@ -387,9 +387,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         // Respond with error message if invalid input data
         respond(400, ["message" => "Invalid input data."]);
     }
-}
+        }
 ```
--** Delete Categories**:
+- **Delete Categories**:
 ```php
 /**
  * This function handles a POST request to delete a category and its contents.
@@ -432,5 +432,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
 }
 ```
 
-
+Feel free to reach out if you have any questions.
 
