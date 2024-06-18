@@ -167,7 +167,7 @@ The PHP script `server.php` handles all backend operations. Here's a brief overv
 
     // Exit the script to prevent any further execution
     exit;
-}
+    }
     ```
 
 - **Fetching Photos | Categories**:
