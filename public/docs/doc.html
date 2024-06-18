@@ -1,39 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Management Template Documentation</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container mt-4">
-    <h1>Photo Management Template Documentation</h1>
-    <p>This documentation provides instructions on how to use and customize the Photo Management Template.</p>
-    
-    <h2>Setup</h2>
-    <p>To set up the template, simply include the HTML, CSS, and JS files in your project. The required structure is provided below:</p>
-    <pre><code>photo-management-template/
-├── index.html
-├── assets/
-│   ├── css/
-│   │   └── styles.css
-│   ├── js/
-│   │   └── scripts.js
-│   └── img/
-│       └── (your images will go here)
-└── docs/
-    └── documentation.html</code></pre>
+    <title>Photo Manager Template Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+        }
 
-    <h2>Customization</h2>
-    <p>You can customize the template by modifying the following files:</p>
-    <ul>
-        <li><code>assets/css/styles.css</code>: Adjust styles such as colors, margins, and layout.</li>
-        <li><code>assets/js/scripts.js</code>: Update the photo groups and add new functionality as needed.</li>
-    </ul>
-    
-    <h2>Usage</h2>
-    <p>The main page (<code>index.html</code>) includes a search form and displays photo groups. Use the search form to filter photos based on titles and file names.</p>
-</div>
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            color: #fff;
+        }
+
+        .navbar-brand:hover {
+            color: #ddd;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 48px 0 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 1rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .sidebar .nav-link:hover {
+            color: #007bff;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        h2 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Photo Manager Documentation</a>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#introduction">Introduction</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#code-overview">Code Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#backend-php">Backend PHP</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                <h1 class="mt-4">Photo Manager Template Documentation</h1>
+
+                <section id="introduction">
+                    <h2>Introduction</h2>
+                    <p>Welcome to the Photo Manager Template documentation. This documentation will help you understand the features and functionality of the Photo Manager Template.</p>
+                </section>
+
+                <section id="code-overview">
+                    <h2>Code Overview</h2>
+                    <p>The Photo Manager Template consists of front-end JavaScript code and a back-end PHP script. The front-end uses jQuery and AJAX to interact with the back-end, which handles file operations.</p>
+                    <h3>Front-End Code</h3>
+                    <pre><code class="javascript">
+$(document).ready(function () {
+    const backendUrl = 'http://localhost/Photo-Manager-template/server.php'; // Replace with your backend URL
+
+    /**
+     * Function to load photo groups from the backend
+     * Makes an AJAX GET request to the backend URL with an action parameter set to "photos"
+     * Empties the photo category and edit photo category dropdowns
+     * Renders the photo groups and categories
+     * Populates the photo category and edit photo category dropdowns with the categories obtained from the backend
+     */
+    function loadPhotoGroups() {
+        $.get(`${backendUrl}?action=photos`, function (data) {
+            $('#photoCategory').empty();
+            $('#editPhotoCategory').empty();
+            renderPhotoGroups(data);
+            categoriesList();
+            for (const group in data) {
+                if (group === 'random') {
+                    $('#photoCategory').append(`<option value="${group}" disabled>${capitalize(group)}</option>`);
+                    $('#editPhotoCategory').append(`<option value="${group}" disabled>${capitalize(group)}</option>`);
+                } else {
+                    $('#photoCategory').append(`<option value="${group}">${capitalize(group)}</option>`);
+                    $('#editPhotoCategory').append(`<option value="${group}">${capitalize(group)}</option>`);
+                }
+            }
+        });
+    }
+
+    // Additional functions and event handlers...
+
+    loadPhotoGroups();
+});
+                    </code></pre>
+                    <p>The front-end code primarily handles loading photo groups, uploading new photos, editing and deleting photos, and managing categories. It interacts with the back-end through AJAX requests.</p>
+                </section>
+
+
+                <section id="backend-php">
+                    <h2>Backend PHP</h2>
+                    <p>The back-end PHP script is responsible for managing the photo files on the server. Below is an overview of the key functions and their roles:</p>
+                    <h3>PHP Code</h3>
+                    <pre><code class="php">
+<?php
+// Set error reporting to show all errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Set the content type of the response to JSON
+header('Content-Type: application/json');
+
+// Define the path to the directory where photos are stored
+$uploadsDir = 'public/assets/imgs/';
+
+/**
+ * Function to respond with a JSON response
+ * @param int $status The HTTP status code
+ * @param mixed $data The data to be sent in the response
+ */
+function respond($status, $data = null) {
+    // Set the HTTP status code for the response
+    http_response_code($status);
+
+    // Encode the data as JSON and send it as the response body
+    echo json_encode($data);
+
+    // Exit the script to prevent any further execution
+    exit;
+}
+
+
+// Handle GET request to fetch photo categories
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'photos') {
+    getCategories();
+}
+
+
+?>
+                    </code></pre>
+                    <p>The PHP code consists of various functions to handle different actions like fetching photo categories, uploading photos, editing photo categories, and deleting photos or categories.</p>
+                </section>
+
+                <section id="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>This documentation provides an overview of the Photo Manager Template, including its front-end and back-end components. For any further questions, feel free to reach out.</p>
+                </section>
+            </main>
+        </div>
+    </div>
+
 </body>
+
 </html>

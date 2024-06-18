@@ -1,34 +1,44 @@
 const backendUrl = 'http://localhost/Photo-Manager-template/server.php'; // Replace with the URL of your backend server
 
 $(document).ready(function () {
+
+    // Function to load photo groups from the backend
     function loadPhotoGroups() {
         $.get(`${backendUrl}?action=photos`, function (data) {
+            // Clear previous category options
             $('#photoCategory').empty();
             $('#editPhotoCategory').empty();
+
+            // Render photo groups and categories
             renderPhotoGroups(data);
             categoriesList();
+
+            // Populate category options in the upload and edit photo forms
             for (const group in data) {
                 if (group === 'random') {
-                $('#photoCategory').append(`<option value="${group}" disabled>${capitalize(group)}</option>`);
-                $('#editPhotoCategory').append(`<option value="${group}" disabled>${capitalize(group)}</option>`);
-            } else {
-                $('#photoCategory').append(`<option value="${group}">${capitalize(group)}</option>`);
-                $('#editPhotoCategory').append(`<option value="${group}">${capitalize(group)}</option>`);
-            }
+                    $('#photoCategory').append(`<option value="${group}" disabled>${capitalize(group)}</option>`);
+                    $('#editPhotoCategory').append(`<option value="${group}" disabled>${capitalize(group)}</option>`);
+                } else {
+                    $('#photoCategory').append(`<option value="${group}">${capitalize(group)}</option>`);
+                    $('#editPhotoCategory').append(`<option value="${group}">${capitalize(group)}</option>`);
+                }
             }
         });
     }
 
+    // Click event handler for category links
     $(document).on('click', '.category-link', function () {
         const category = $(this).attr('data-category');
         filterPhotosByCategory(category);
         $("#searchMessage").hide();
     });
 
+    // Function to capitalize the first letter of a string
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    // Function to load the list of categories
     function categoriesList() {
         $.get(`${backendUrl}?action=photos`, function (data) {
             const listcategory = $("#categoryList");
@@ -42,23 +52,20 @@ $(document).ready(function () {
         });
     }
 
-
-    
+    // Function to render photo groups
     function renderPhotoGroups(photoGroups) {
         const container = $("#photoGroups");
         container.empty();
 
         for (const group in photoGroups) {
-          
             const groupHtml = `
                 <div class="col-12 photo-group">
-                    <h3 class=" border-bottom border-success">${capitalize(group)}</h3>
+                    <h3 class="border-bottom border-success">${capitalize(group)}</h3>
                     <div class="row">
                         ${photoGroups[group].map(photo => `
                             <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card  ">
-                                <a href="${photo}"  data-lightbox="${photo}"><img src="${photo}" style="height: 200px;object-fit: cover" class="  w-100" alt="${group}"></a>
-                                
+                                <div class="card">
+                                    <a href="${photo}" data-lightbox="${photo}"><img src="${photo}" style="height: 200px;object-fit: cover" class="w-100" alt="${group}"></a>
                                     <div class="card-body">
                                         <button data-old-category="${group}" data-photo-path="${photo}" type="button" class="btn btn-primary edit-btn" data-photo="${photo}" data-bs-toggle="modal" data-bs-target="#editPhotoModal">Edit</button>
                                         <button type="button" class="btn btn-danger delete-btn" data-photo="${photo}">Delete</button>
@@ -72,6 +79,7 @@ $(document).ready(function () {
             container.append(groupHtml);
         }
 
+        // Attach click event handlers to edit buttons
         $('.edit-btn').on('click', function () {
             const oldCategory = $(this).data('old-category');
             const photoPath = $(this).data('photo-path');
@@ -80,6 +88,7 @@ $(document).ready(function () {
         });
     }
 
+    // Search form submission handler
     $("#searchForm").submit(function (e) {
         e.preventDefault();
         const query = $(this).find("input").val().toLowerCase();
@@ -102,10 +111,10 @@ $(document).ready(function () {
             $('#manageCategories').hide();
             $("#searchMessage").show();
             renderPhotoGroups(filteredGroups);
-            
         });
     });
 
+    // Upload photo form submission handler
     $("#uploadPhotoForm").submit(function (e) {
         e.preventDefault();
         const category = $("#photoCategory").val();
@@ -127,6 +136,7 @@ $(document).ready(function () {
         });
     });
 
+    // Load categories for management
     function loadCategories() {
         $.ajax({
             url: `${backendUrl}?action=photos`,
@@ -169,21 +179,24 @@ $(document).ready(function () {
         });
     }
 
+    // Open edit photo modal with pre-filled data
     function openEditModal(oldCategory, photoPath) {
         $("#editOldCategory").val(oldCategory);
         $("#editPhotoPath").val(photoPath);
         $("#editPhotoModal").modal('show');
     }
 
+    // Open rename category modal with pre-filled data
     function openRenameCategoryModal(category) {
         $("#editOldCategoryName").val(category);
         $("#editNewCategoryName").val(category);
         $("#editCategoryModal").modal('show');
     }
 
+    // Delete category and associated photos
     function deleteCategory(category) {
         if (confirm(`Are you sure you want to delete the category "${category}" and all its photos?`)) {
-            $.post(`${backendUrl}?action=category_delete`, {category}, function () {
+            $.post(`${backendUrl}?action=category_delete`, { category }, function () {
                 loadCategories(); // Refresh the categories to reflect changes
                 loadPhotoGroups(); // Refresh the photo groups to reflect changes
             }).fail(function () {
@@ -192,10 +205,11 @@ $(document).ready(function () {
         }
     }
 
+    // Create category form submission handler
     $("#createCategoryForm").submit(function (e) {
         e.preventDefault();
         const category = $("#newCategoryName").val();
-        $.post(`${backendUrl}?action=category_create`, {category}, function () {
+        $.post(`${backendUrl}?action=category_create`, { category }, function () {
             $('#createCategoryModal').modal('hide');
             loadCategories();
         }).fail(function () {
@@ -203,11 +217,12 @@ $(document).ready(function () {
         });
     });
 
+    // Edit category form submission handler
     $("#editCategoryForm").submit(function (e) {
         e.preventDefault();
         const oldCategory = $("#editOldCategoryName").val();
         const newCategory = $("#editNewCategoryName").val();
-        $.post(`${backendUrl}?action=category_rename`, {oldCategory, newCategory}, function () {
+        $.post(`${backendUrl}?action=category_rename`, { oldCategory, newCategory }, function () {
             $('#editCategoryModal').modal('hide');
             loadCategories();
             loadPhotoGroups();
@@ -216,20 +231,21 @@ $(document).ready(function () {
         });
     });
 
+    // Edit photo form submission handler
     $("#editPhotoForm").submit(function (e) {
         e.preventDefault();
         const oldCategory = $("#editOldCategory").val();
         const newCategory = $("#editPhotoCategory").val();
         const photo = $("#editPhotoPath").val();
-        $.post(`${backendUrl}?action=edit`, {oldCategory, newCategory, photo}, function () {
+        $.post(`${backendUrl}?action=edit`, { oldCategory, newCategory, photo }, function () {
             $('#editPhotoModal').modal('hide');
             loadPhotoGroups();
         }).fail(function () {
             alert('Error editing photo.');
         });
-      
     });
 
+    // Delete photo click event handler
     $(document).on('click', '.delete-btn', function () {
         const photo = $(this).data('photo');
         const confirmDelete = confirm('Are you sure you want to delete this photo?');
@@ -243,14 +259,15 @@ $(document).ready(function () {
         }
     });
 
+    // Navigation to photos view
     $('#navPhotos').on('click', function () {
         $('#photoGallery').show();
         $('#list').show();
         $('#manageCategories').hide();
         $("#searchMessage").hide();
-        
     });
 
+    // Navigation to categories view
     $('#navCategories').on('click', function () {
         $('#photoGallery').hide();
         $('#list').hide();
@@ -259,6 +276,7 @@ $(document).ready(function () {
         loadCategories();
     });
 
+    // Filter photos by category
     function filterPhotosByCategory(category) {
         $.get(`${backendUrl}?action=photos`, function (data) {
             const filteredGroups = {};
@@ -269,10 +287,10 @@ $(document).ready(function () {
             } else {
                 $('#emptyCategory').hide();
             }
-            
             renderPhotoGroups(filteredGroups);
         });
     }
 
+    // Initial load of photo groups
     loadPhotoGroups();
 });
