@@ -17,6 +17,19 @@ Welcome to the Photo Manager Template! This template allows you to manage photo 
 - **Edit Photos**: change a photo's category or delete a photo.
 - **User-Friendly Interface**: Simple and intuitive interface for managing photos.
 
+
+## ScreenShots
+![01-Home screen](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/55b557ea-9b2a-47a4-ba2f-b8192ed33c26)
+![02-Search function](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/5eda9ed4-4197-4920-a349-853c531924b6)
+![03-Filter by category](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/f668d01b-c7d0-428e-976e-2ec37b9488b6)
+![04-Upload photo](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/0affc205-01f9-47fd-b57e-e18180a50a0e)
+![05-Edit photo's category](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/325c65a1-ee2c-48f1-affa-a3e8b1919973)
+![06-Delete photo](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/6f3f5534-2619-4236-926a-e3c24bc1f822)
+![07-Manage categories](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/f002ca6c-59f2-4b79-8671-adbfa6958fc9)
+![08-Rename category](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/33397ac8-c1ec-4560-8d95-b09ec99494bd)
+![09-Add new category](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/93ad150c-3a1b-4c91-88ec-7f06f602bbb3)
+![10-Delete category](https://github.com/Hakim-Latroch/Photo-Manager-template/assets/139995893/ebe0fd19-fc74-4b15-bf4f-5d8a3030309e)
+
 ## Installation
 
 ### Prerequisites
